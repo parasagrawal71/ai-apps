@@ -1,0 +1,23 @@
+# Install env manager
+> pip3 install pipenv [Didn't work probably due to homebrew]
+    > Used -> brew install pipenv
+
+# Setup dependencies list
+> Create a file in your project directory called Pipfile and Update the file content.
+
+# Install the dependencies from the Pipfile
+> pipenv install
+
+# Create and enter a new environment
+> pipenv shell
+
+# Run
+> python main.py
+
+# Exit
+> exit
+
+# Re-enter
+> pipenv shell
+
+Reference: https://www.udemy.com/course/chatgpt-and-langchain-the-complete-developers-masterclass/learn/lecture/41649584#overview
