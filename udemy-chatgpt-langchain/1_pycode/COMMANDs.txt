@@ -21,4 +21,8 @@
 # Re-enter
 > pipenv shell
 
+# Install a package
+> pipenv install pprintpp
+> Or, add a package manually in Pipfile and run 'pipenv install'
+
 Reference: https://www.udemy.com/course/chatgpt-and-langchain-the-complete-developers-masterclass/learn/lecture/41649584#overview

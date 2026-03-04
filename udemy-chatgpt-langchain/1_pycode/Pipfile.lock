@@ -1,7 +1,7 @@
 {
     "_meta": {
         "hash": {
-            "sha256": "74bad48efca11ab099490d050f856b6a91496df951f61a69c0f0c1e25b670b8e"
+            "sha256": "f04498019c09392fada8008d337f341309050152c87d132f6a9a47efa6c2d51a"
         },
         "pipfile-spec": 6,
         "requires": {
@@ -901,6 +901,14 @@
             ],
             "markers": "python_version >= '3.7'",
             "version": "==23.2"
+        },
+        "pprintpp": {
+            "hashes": [
+                "sha256:b6b4dcdd0c0c0d75e4d7b2f21a9e933e5b2ce62b26e1a54537f9651ae5a5c01d",
+                "sha256:ea826108e2c7f49dc6d66c752973c3fc9749142a798d6b254e1e301cfdbc6403"
+            ],
+            "index": "pypi",
+            "version": "==0.4.0"
         },
         "propcache": {
             "hashes": [
