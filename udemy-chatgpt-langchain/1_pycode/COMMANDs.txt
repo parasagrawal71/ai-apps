@@ -13,6 +13,7 @@
 
 # Run
 > python main.py
+> python main.py --task 'multiply two numbers' --language javascript 
 
 # Exit
 > exit
