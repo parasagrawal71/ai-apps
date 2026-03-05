@@ -1,0 +1,9 @@
+OpenAI / ChatGPT
+------
+> https://platform.openai.com/
+
+
+Groq
+------
+> https://console.groq.com
+> LangChain Groq Docs: https://docs.langchain.com/oss/python/integrations/chat/groq

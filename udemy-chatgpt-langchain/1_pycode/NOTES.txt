@@ -1,8 +1,0 @@
-OpenAI / ChatGPT
-------
-> https://platform.openai.com/
-
-
-Groq
-------
-> https://console.groq.com
