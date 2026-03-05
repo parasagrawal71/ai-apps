@@ -3,7 +3,7 @@ from dotenv import load_dotenv
 from langchain_groq import ChatGroq
 from langchain.prompts import ChatPromptTemplate, HumanMessagePromptTemplate, SystemMessagePromptTemplate, MessagesPlaceholder
 from langchain.chains import LLMChain
-from langchain.memory import ConversationBufferMemory, FileChatMessageHistory
+from langchain.memory import ConversationBufferMemory, FileChatMessageHistory, ConversationSummaryMemory
 
 # -- Load environment variables
 load_dotenv()
@@ -15,10 +15,16 @@ API_KEY = os.getenv("GROQ_API_KEY")
 llm = ChatGroq(groq_api_key=API_KEY, model_name="llama-3.1-8b-instant")
 
 # -- Memory
-memory = ConversationBufferMemory(
-    chat_memory=FileChatMessageHistory("chat_history.json"),
+# memory = ConversationBufferMemory(
+#     chat_memory=FileChatMessageHistory("chat_history.json"),
+#     memory_key="messages",
+#     return_messages=True,
+# )
+memory = ConversationSummaryMemory(
+    # chat_memory=FileChatMessageHistory("chat_history.json"),
     memory_key="messages",
     return_messages=True,
+    llm=llm,
 )
 
 # -- Prompt
@@ -31,7 +37,12 @@ prompt = ChatPromptTemplate(
 )
 
 # -- Chain
-chain = LLMChain(llm=llm, prompt=prompt, memory=memory)
+chain = LLMChain(
+    llm=llm,
+    prompt=prompt,
+    memory=memory,
+    verbose=True,
+)
 
 while True:
     content = input(">> ")
