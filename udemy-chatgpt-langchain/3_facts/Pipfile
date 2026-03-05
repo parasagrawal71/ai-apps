@@ -1,0 +1,16 @@
+[[source]]
+url = "https://pypi.org/simple"
+verify_ssl = true
+name = "pypi"
+ 
+[packages]
+langchain = "==0.0.352"
+langchain-groq = "==0.0.1"
+python-dotenv = "==1.0.0"
+tiktoken = "*"
+chromadb = "*"
+ 
+[dev-packages]
+ 
+[requires]
+python_version = "3.11"
