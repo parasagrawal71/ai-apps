@@ -39,8 +39,8 @@ db = Chroma(
 #     print(result[0].page_content)
 
 # -- RetrievalQA
-# retriever = db.as_retriever()
-retriever = RedundantFilterRetriever(embeddings=embeddings, chroma=db)
+retriever = db.as_retriever()
+# retriever = RedundantFilterRetriever(embeddings=embeddings, chroma=db)
 chain = RetrievalQA.from_chain_type(llm=llm, chain_type="stuff", retriever=retriever)
 
 result = chain.run("What is an interesting fact about the English language?")
