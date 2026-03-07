@@ -4,6 +4,10 @@ from langchain.embeddings import HuggingFaceEmbeddings
 from langchain.vectorstores.chroma import Chroma
 from langchain.chains import RetrievalQA
 from langchain_groq import ChatGroq
+from redundant_filter_retriever import RedundantFilterRetriever
+import langchain
+
+langchain.debug = True
 
 # -- Load environment variables
 load_dotenv()
@@ -35,7 +39,8 @@ db = Chroma(
 #     print(result[0].page_content)
 
 # -- RetrievalQA
-retriever = db.as_retriever()
+# retriever = db.as_retriever()
+retriever = RedundantFilterRetriever(embeddings=embeddings, chroma=db)
 chain = RetrievalQA.from_chain_type(llm=llm, chain_type="stuff", retriever=retriever)
 
 result = chain.run("What is an interesting fact about the English language?")
