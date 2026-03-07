@@ -8,9 +8,6 @@ from langchain.vectorstores.chroma import Chroma
 # -- Load environment variables
 load_dotenv()
 
-# -- Set API key
-API_KEY = os.getenv("GROQ_API_KEY")
-
 # -- Text Splitter
 text_splitter = CharacterTextSplitter(separator="\n", chunk_size=200, chunk_overlap=0)
 
@@ -33,18 +30,19 @@ embeddings = HuggingFaceEmbeddings(
 # emb = embeddings.embed_query("The quick brown fox jumps over the lazy dog.")
 # print(emb)
 
-# -- Chroma DB
+# -- Chroma DB: Setup DB and Create embeddings
 db = Chroma.from_documents(
     documents=docs,
     embedding=embeddings,
     persist_directory="emb"
 )
 
-results = db.similarity_search_with_score(
-    "What is an interesting fact about the English language?", k=2
-)
+# -- Moved to prompt.py
+# results = db.similarity_search_with_score(
+#     "What is an interesting fact about the English language?", k=2
+# )
 
-for result in results:
-    print("\n")
-    print(result[1]) # similarity score
-    print(result[0].page_content)
+# for result in results:
+#     print("\n")
+#     print(result[1]) # similarity score
+#     print(result[0].page_content)
