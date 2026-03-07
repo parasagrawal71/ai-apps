@@ -10,8 +10,10 @@ python-dotenv = "==1.0.0"
 tiktoken = "*"
 sentence-transformers = "*"
 chromadb = "*"
+matplotlib = "*"
 
 [dev-packages]
+ipykernel = "*"
 
 [requires]
 python_version = "3.11"
