@@ -12,6 +12,7 @@ from langchain.memory import ConversationBufferMemory
 
 from tools.sql import run_query_tool, list_tables, describe_tables_tool
 from tools.report import write_report_tool
+from handlers.chat_model_start_handler import ChatModelStartHandler
 
 # -- Load environment variables
 load_dotenv()
@@ -19,8 +20,13 @@ load_dotenv()
 # -- Set API key
 API_KEY = os.getenv("GROQ_API_KEY")
 
+# -- Initialize handlers
+handler = ChatModelStartHandler()
+
 # -- Initialize LLM
-llm = ChatGroq(groq_api_key=API_KEY, model_name="llama-3.1-8b-instant")
+llm = ChatGroq(
+    groq_api_key=API_KEY, model_name="llama-3.1-8b-instant", callbacks=[handler]
+)
 
 
 """
@@ -71,11 +77,11 @@ agent_executor = initialize_agent(
     llm,
     agent=AgentType.ZERO_SHOT_REACT_DESCRIPTION,
     # agent=AgentType.STRUCTURED_CHAT_ZERO_SHOT_REACT_DESCRIPTION, # To use StructuredTool
-    verbose=True,
+    # verbose=True,
     memory=memory,
 )
 
-# agent_executor.run("How many users are there in the database?")
+agent_executor.run("How many users are there in the database?")
 
 # With Groq, it still tries to execute the query with shipping_address table
 # agent_executor.run("How many users have provided a shipping address?") # sqlite3.OperationalError: no such column: shipping_address
@@ -84,5 +90,5 @@ agent_executor = initialize_agent(
 # agent_executor.run("Summarize the top 5 most popular products. Write the results to a report file.")
 
 
-agent_executor.run("How many orders are there?")
-agent_executor.run("Repeat the exact same process for the users.")
+# agent_executor.run("How many orders are there?")
+# agent_executor.run("Repeat the exact same process for the users.")
