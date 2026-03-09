@@ -8,6 +8,7 @@ from langchain.prompts import (
 )
 from langchain.agents import initialize_agent, AgentExecutor, AgentType
 from langchain.schema import SystemMessage
+from langchain.memory import ConversationBufferMemory
 
 from tools.sql import run_query_tool, list_tables, describe_tables_tool
 from tools.report import write_report_tool
@@ -42,11 +43,17 @@ prompt = ChatPromptTemplate(
                 "Do not make any assumptions about what tables exist or what columns exist. Instead, use the describe_tables function.\n",
             )
         ),
+        MessagesPlaceholder(variable_name="chat_history"),
         HumanMessagePromptTemplate.from_template("{input}"),
         MessagesPlaceholder(
             variable_name="agent_scratchpad"
-        ),  # IMPORTANT: must be named "agent_scratchpad"
+        ),  # IMPORTANT: must be named "agent_scratchpad". -> AIMessageForFunction + FunctionResultMessage (Not sure whether they are exactly named like this)
     ],
+)
+
+memory = ConversationBufferMemory(
+    memory_key="chat_history",
+    return_messages=True,
 )
 
 # -- Agent (returns AgentExecutor internally)
@@ -58,13 +65,14 @@ etc - all the normal things a chain has.
 AgentExecutor: Takes an agent and runs it until the response is not a function 
 call. Essentially a fancy while loop.
 """
-tools = [run_query_tool, describe_tables_tool, write_report_tool]
+tools = [run_query_tool, describe_tables_tool] # Comment out write_report_tool
 agent_executor = initialize_agent(
     tools,
     llm,
     agent=AgentType.ZERO_SHOT_REACT_DESCRIPTION,
     # agent=AgentType.STRUCTURED_CHAT_ZERO_SHOT_REACT_DESCRIPTION, # To use StructuredTool
-    verbose=True
+    verbose=True,
+    memory=memory,
 )
 
 # agent_executor.run("How many users are there in the database?")
@@ -74,3 +82,7 @@ agent_executor = initialize_agent(
 
 # With STRUCTURED_CHAT_ZERO_SHOT_REACT_DESCRIPTION, write_report tool is not working well.
 # agent_executor.run("Summarize the top 5 most popular products. Write the results to a report file.")
+
+
+agent_executor.run("How many orders are there?")
+agent_executor.run("Repeat the exact same process for the users.")
