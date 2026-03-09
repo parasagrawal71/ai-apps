@@ -7,8 +7,9 @@ from langchain.prompts import (
     MessagesPlaceholder,
 )
 from langchain.agents import initialize_agent, AgentExecutor, AgentType
+from langchain.schema import SystemMessage
 
-from tools.sql import run_query_tool
+from tools.sql import run_query_tool, list_tables, describe_tables_tool
 
 # -- Load environment variables
 load_dotenv()
@@ -30,10 +31,20 @@ Example,
 """
 
 # -- Prompt
+tables = list_tables()
 prompt = ChatPromptTemplate(
     messages=[
+        SystemMessage(
+            content=(
+                "You are an AI that has an access to a sqlite database.\n",
+                f"The available tables in the database are: {tables}\n",
+                "Do not make any assumptions about what tables exist or what columns exist. Instead, use the describe_tables function.\n",
+            )
+        ),
         HumanMessagePromptTemplate.from_template("{input}"),
-        MessagesPlaceholder(variable_name="agent_scratchpad"), # IMPORTANT: must be named "agent_scratchpad"
+        MessagesPlaceholder(
+            variable_name="agent_scratchpad"
+        ),  # IMPORTANT: must be named "agent_scratchpad"
     ],
 )
 
@@ -46,7 +57,7 @@ etc - all the normal things a chain has.
 AgentExecutor: Takes an agent and runs it until the response is not a function 
 call. Essentially a fancy while loop.
 """
-tools = [run_query_tool]
+tools = [run_query_tool, describe_tables_tool]
 agent_executor = initialize_agent(
     tools,
     llm,
@@ -54,4 +65,5 @@ agent_executor = initialize_agent(
     verbose=True
 )
 
-agent_executor.run("How many users are there in the database?")
+# agent_executor.run("How many users are there in the database?")
+agent_executor.run("How many users have provided a shipping address?") # sqlite3.OperationalError: no such column: shipping_address
