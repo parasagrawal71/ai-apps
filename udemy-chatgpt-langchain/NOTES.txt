@@ -7,3 +7,8 @@ Groq
 ------
 > https://console.groq.com
 > LangChain Groq Docs: https://docs.langchain.com/oss/python/integrations/chat/groq
+
+
+Useful Tools
+------
+> https://transform.tools/json-to-json-schema
