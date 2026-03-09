@@ -10,6 +10,7 @@ from langchain.agents import initialize_agent, AgentExecutor, AgentType
 from langchain.schema import SystemMessage
 
 from tools.sql import run_query_tool, list_tables, describe_tables_tool
+from tools.report import write_report_tool
 
 # -- Load environment variables
 load_dotenv()
@@ -57,13 +58,18 @@ etc - all the normal things a chain has.
 AgentExecutor: Takes an agent and runs it until the response is not a function 
 call. Essentially a fancy while loop.
 """
-tools = [run_query_tool, describe_tables_tool]
+tools = [run_query_tool, describe_tables_tool, write_report_tool]
 agent_executor = initialize_agent(
     tools,
     llm,
-    agent=AgentType.ZERO_SHOT_REACT_DESCRIPTION,
+    # agent=AgentType.ZERO_SHOT_REACT_DESCRIPTION,
+    agent=AgentType.STRUCTURED_CHAT_ZERO_SHOT_REACT_DESCRIPTION, # To use StructuredTool
     verbose=True
 )
 
 # agent_executor.run("How many users are there in the database?")
-agent_executor.run("How many users have provided a shipping address?") # sqlite3.OperationalError: no such column: shipping_address
+
+# agent_executor.run("How many users have provided a shipping address?") # sqlite3.OperationalError: no such column: shipping_address
+
+# agent_executor.run("Summarize the top 5 most popular products. Write the results to a report file.")
+agent_executor.invoke({"input": "Summarize the top 5 most popular products. Write the results to a report file."})

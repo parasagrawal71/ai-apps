@@ -38,6 +38,8 @@ def list_tables():
 def describe_tables(table_names):
     if isinstance(table_names, str):
         table_names = ast.literal_eval(table_names)
+    elif isinstance(table_names, dict):
+        table_names = table_names.get("table_names", [])
 
     c = conn.cursor()
     tables = ", ".join("'" + table_name + "'" for table_name in table_names)
