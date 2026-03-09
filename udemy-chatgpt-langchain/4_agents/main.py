@@ -62,14 +62,15 @@ tools = [run_query_tool, describe_tables_tool, write_report_tool]
 agent_executor = initialize_agent(
     tools,
     llm,
-    # agent=AgentType.ZERO_SHOT_REACT_DESCRIPTION,
-    agent=AgentType.STRUCTURED_CHAT_ZERO_SHOT_REACT_DESCRIPTION, # To use StructuredTool
+    agent=AgentType.ZERO_SHOT_REACT_DESCRIPTION,
+    # agent=AgentType.STRUCTURED_CHAT_ZERO_SHOT_REACT_DESCRIPTION, # To use StructuredTool
     verbose=True
 )
 
 # agent_executor.run("How many users are there in the database?")
 
+# With Groq, it still tries to execute the query with shipping_address table
 # agent_executor.run("How many users have provided a shipping address?") # sqlite3.OperationalError: no such column: shipping_address
 
+# With STRUCTURED_CHAT_ZERO_SHOT_REACT_DESCRIPTION, write_report tool is not working well.
 # agent_executor.run("Summarize the top 5 most popular products. Write the results to a report file.")
-agent_executor.invoke({"input": "Summarize the top 5 most popular products. Write the results to a report file."})

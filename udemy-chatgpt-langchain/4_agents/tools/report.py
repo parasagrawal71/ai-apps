@@ -13,7 +13,7 @@ def write_report(filename, html):
 # StructuredTool: Multiple arguments
 write_report_tool = StructuredTool.from_function(
     name="write_report",
-    description="Write a HTML file to disk. Use this whenever someone ask for a report.",
+    description="Write a HTML file to disk. MANDATORY: Use this whenever someone ask to write report.",
     func=write_report,
     args_schema=WriteReportArgsSchema,
 )
