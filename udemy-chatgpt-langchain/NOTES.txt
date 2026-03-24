@@ -45,9 +45,21 @@ Summary
     - SQLite Database
     - Agent and AgentExecutor
 
+    PDF Web App:
+    ---
     Pincone as a Vector Database
-    - Adding documents to the vector store
+    - Pinecone Dashboard and Serverless Indexes (https://app.pinecone.io/)
+    - Pinecone Client
+    - Adding documents to the vector store (Create embeddings)
 
     Distributed Text Generation with Celery
     - Redis
     - Adding in the Worker, Queuing up jobs
+
+    Custom Message Histories
+    - Persistent Message Storage (Database. Used SQLite in this app)
+    - Conversational Retrieval Chain (Two chains: Condense Question Chain, Combine Docs Chain)
+    - SQLMessageHistory custom implementation
+    
+    Streaming Text Generation
+    - 
