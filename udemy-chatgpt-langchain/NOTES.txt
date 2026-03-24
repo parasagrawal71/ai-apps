@@ -1,14 +1,53 @@
+------------
 OpenAI / ChatGPT
-------
+------------
 > https://platform.openai.com/
 
 
+------------
 Groq
-------
+------------
 > https://console.groq.com
 > LangChain Groq Docs: https://docs.langchain.com/oss/python/integrations/chat/groq
 
 
+------------
 Useful Tools
-------
+------------
 > https://transform.tools/json-to-json-schema
+
+
+------------
+Summary
+------------
+> What is LangChain and why use it?
+> Keywords
+    LangChain Integration with Groq/ChatGPT
+    - Chain, Sequential Chain
+    - PromptTemplate
+    
+    Memory Management: 
+    - Chat vs Completion Style Models
+    - Representing messages with ChatPromptTemplate (HumanMessagePromptTemplate, SystemMessagePromptTemplate)
+    - Using ConversationBufferMemory to store conversations (FileChatMessageHistory)
+    - Summarizations Conversation Summary Memory (ConversationSummaryMemory)
+    
+    Adding Context with Embedding Techniques, Custom Document Retrievers
+    - Loading files with Document Loaders (TextLoader, CharacterTextSplitter)
+    - Generating embeddings (HuggingFaceEmbeddings)
+    - ChromaDB
+    - Retrieval Chain, Retriever (RetrievalQA)
+    - Custom Retriever (RedundantFilterRetriever)
+
+    Empower ChatGPT with Tools and Agents
+    - Tools (Tool). Tools with multiple arguments (StructuredTool)
+    - ChatGPT Functions
+    - SQLite Database
+    - Agent and AgentExecutor
+
+    Pincone as a Vector Database
+    - Adding documents to the vector store
+
+    Distributed Text Generation with Celery
+    - Redis
+    - Adding in the Worker, Queuing up jobs
